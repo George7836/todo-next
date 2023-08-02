@@ -1,8 +1,14 @@
-import { List } from '@mui/material'
+import { List, Typography } from '@mui/material'
 import React from 'react'
 import TodoItem from './TodoItem'
 
-const todos = [
+type Todo = {
+  id: number
+  text: string
+  done: boolean
+}
+
+const todos: Todo[] = [
   {
     id: 1,
     done: false,
@@ -27,14 +33,18 @@ export default function TodoList() {
       bgcolor: 'background.paper', 
       marginTop: '70px'
     }}>
-      {todos.map((todo) => (
-        <TodoItem 
-          key={todo.id}
-          id={todo.id}
-          text={todo.text}
-          done={todo.done}
-        />
-      ))}
+      {todos.length > 0
+        ?
+        todos.map((todo) => (
+          <TodoItem 
+            key={todo.id}
+            id={todo.id}
+            text={todo.text}
+            done={todo.done}
+          />
+        ))
+        : <Typography sx={{ padding: '10px' }}>You haven't added any todo yet</Typography>
+      }
     </List>
   )
 }
