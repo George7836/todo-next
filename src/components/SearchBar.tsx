@@ -1,10 +1,28 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputBase, alpha, styled } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
+import { useTodos } from '@/store/store';
 
 export default function SearchBar() {
+  const [text, setText] = useState('')
+  const filterTodos = useTodos((state) => state.filterTodos)
+  const setSearchValue = useTodos((state) => state.setSearchValue)
+  const searchValue = useTodos((state) => state.searchValue)
+
+  const showResults = (searchValue: string) => {
+    setText(searchValue)
+    setSearchValue(searchValue)
+  }
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      filterTodos()
+    }, 300)
+    return () => clearTimeout(debounce)
+  }, [searchValue])
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -12,7 +30,9 @@ export default function SearchBar() {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
+        value={text}
         inputProps={{ 'aria-label': 'search' }}
+        onChange={(e) => showResults(e.target.value)}
       />
     </Search>
   )

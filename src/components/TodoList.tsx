@@ -1,12 +1,12 @@
 'use client'
 
 import { List, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 import TodoItem from './TodoItem'
 import { useTodos } from '@/store/store'
 
 export default function TodoList() {
-  const todos = useTodos((state) => state.todos)
+  const todos = useTodos((state) => state.filteredTodos)
 
   return (
     <List sx={{ 
@@ -24,7 +24,7 @@ export default function TodoList() {
             done={todo.done}
           />
         ))
-        : <Typography sx={{ padding: '10px' }}>You haven't added any todo yet</Typography>
+        : <Typography sx={{ padding: '10px' }}>There is no any task</Typography>
       }
     </List>
   )

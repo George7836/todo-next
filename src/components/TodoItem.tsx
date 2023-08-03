@@ -14,12 +14,24 @@ export default function TodoItem({id, text, done}: Todo) {
   const removeTodo = useTodos((state) => state.removeTodo)
   const setDone = useTodos((state) => state.setDone)
   const setUpdated = useTodos((state) => state.setUpdated)
+  const filterTodos = useTodos((state) => state.filterTodos)
 
   const lineThrough = done ? {'textDecoration': 'line-through'} : {'textDecoration': 'none'}
  
   const updateTodoText = () => {
     setUpdated(id, todoText)
+    filterTodos()
     setEditMode((prev) => !prev)
+  }
+
+  const deleteTask = () => {
+    removeTodo(id)
+    filterTodos()
+  }
+
+  const setCompleted = () => {
+    setDone(id)
+    filterTodos()
   }
 
   return (
@@ -30,7 +42,7 @@ export default function TodoItem({id, text, done}: Todo) {
     >
       <Checkbox
         checked={done}
-        onClick={() => setDone(id)}
+        onClick={setCompleted}
       />
       {editMode 
         ? <TextField 
@@ -55,7 +67,7 @@ export default function TodoItem({id, text, done}: Todo) {
             <EditIcon />
           </IconButton>
       }
-      <IconButton onClick={() => removeTodo(id)}>
+      <IconButton onClick={deleteTask}>
         <ClearIcon />
       </IconButton>
     </ListItem>

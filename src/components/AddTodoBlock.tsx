@@ -2,12 +2,13 @@
 
 import { useTodos } from '@/store/store'
 import { Box, Button, TextField } from '@mui/material'
-import React, { useState, useId } from 'react'
+import React, { useState } from 'react'
 
 export default function AddTodoBlock() {
   const addTodo = useTodos((state) => state.addTodo)
   const todos = useTodos((state) => state.todos)
   const [text, setText] = useState('')
+  const filterTodos = useTodos((state) => state.filterTodos)
 
   const createUniqId = () => {
     let id = Math.random();
@@ -24,6 +25,7 @@ export default function AddTodoBlock() {
       done: false,
       text: text
     })
+    filterTodos()
     setText('')
   }
 
