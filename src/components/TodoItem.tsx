@@ -5,24 +5,23 @@ import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import React, { useState } from 'react'
+import { Todo } from '@/types/types';
+import { useTodos } from '@/store/store';
 
-type TodoItemProps = {
-  id: number
-  text: string
-  done: boolean
-}
-
-export default function TodoItem({id, text, done}: TodoItemProps) {
-  const [checked, setChecked] = useState(done)
+export default function TodoItem({id, text, done}: Todo) {
   const [todoText, setTodoText] = useState(text)
   const [editMode, setEditMode] = useState(false)
+  const removeTodo = useTodos((state) => state.removeTodo)
+  const setDone = useTodos((state) => state.setDone)
+  const setUpdated = useTodos((state) => state.setUpdated)
 
-  const lineThrough = checked ? {'textDecoration': 'line-through'} : {'textDecoration': 'none'}
-
-  const handleToggle = () => {
-    setChecked((prev) => !prev)
-  }
+  const lineThrough = done ? {'textDecoration': 'line-through'} : {'textDecoration': 'none'}
  
+  const updateTodoText = () => {
+    setUpdated(id, todoText)
+    setEditMode((prev) => !prev)
+  }
+
   return (
     <ListItem
       key={id}
@@ -30,9 +29,8 @@ export default function TodoItem({id, text, done}: TodoItemProps) {
       sx={{ padding: '5px' }}
     >
       <Checkbox
-        checked={checked}
-        inputProps={{ 'aria-labelledby': String(id) }}
-        onClick={handleToggle}
+        checked={done}
+        onClick={() => setDone(id)}
       />
       {editMode 
         ? <TextField 
@@ -47,13 +45,17 @@ export default function TodoItem({id, text, done}: TodoItemProps) {
             style={lineThrough}
           />
       }
-      <IconButton onClick={() => setEditMode((prev) => !prev)}>
-        {editMode
-          ? <DoneIcon/>
-          : <EditIcon />
-        }
-      </IconButton>
-      <IconButton>
+      {editMode
+        ? 
+          <IconButton onClick={updateTodoText}>
+            <DoneIcon />
+          </IconButton>
+        : 
+          <IconButton onClick={() => setEditMode((prev) => !prev)}>
+            <EditIcon />
+          </IconButton>
+      }
+      <IconButton onClick={() => removeTodo(id)}>
         <ClearIcon />
       </IconButton>
     </ListItem>

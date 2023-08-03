@@ -1,32 +1,13 @@
+'use client'
+
 import { List, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import TodoItem from './TodoItem'
-
-type Todo = {
-  id: number
-  text: string
-  done: boolean
-}
-
-const todos: Todo[] = [
-  {
-    id: 1,
-    done: false,
-    text: 'Todo1'
-  },
-  {
-    id: 2,
-    done: false,
-    text: 'Todo1'
-  },
-  {
-    id: 3,
-    done: false,
-    text: 'Todo1'
-  }
-]
+import { useTodos } from '@/store/store'
 
 export default function TodoList() {
+  const todos = useTodos((state) => state.todos)
+
   return (
     <List sx={{ 
       width: '100%', 
