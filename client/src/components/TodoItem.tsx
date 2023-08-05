@@ -16,7 +16,7 @@ export default function TodoItem({id, content, done}: Todo) {
   const filterTodos = useTodos((state) => state.filterTodos)
   const getTodos = useTodos((state) => state.getTodos)
 
-  const lineThrough = done ? {'textDecoration': 'line-through'} : {'textDecoration': 'none'}
+  const lineThrough = done ? "line-through" : "none"
  
   const updateTodoText = async () => {
     await updateTodo({id: id, content: todoText, done: done})
@@ -57,7 +57,7 @@ export default function TodoItem({id, content, done}: Todo) {
           />
         : <ListItemText 
             primary={todoText}
-            style={lineThrough}
+            style={{"textDecoration": lineThrough, "wordBreak": "break-all"}}
           />
       }
       {editMode

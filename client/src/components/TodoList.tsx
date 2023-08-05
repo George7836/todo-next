@@ -8,6 +8,7 @@ import { useTodos } from '@/store/store'
 export default function TodoList() {
   const todos = useTodos((state) => state.filteredTodos)
   const getTodos = useTodos((state) => state.getTodos)
+  const fetchedTodos = useTodos((state) => state.todos)
 
   useEffect(() => {
     getTodos()
