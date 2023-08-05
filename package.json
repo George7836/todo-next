@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "cd server && npm start",
-    "client": "cd client && npm run dev",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "client": "cd client && npm run dev"
   },
   "repository": {
     "type": "git",
