@@ -6,7 +6,6 @@ import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
 export default function AddTodoBlock() {
-  const todos = useTodos((state) => state.todos)
   const [text, setText] = useState('')
   const filterTodos = useTodos((state) => state.filterTodos)
   const getTodos = useTodos((state) => state.getTodos)

@@ -4,7 +4,6 @@ import TodoList from "@/components/TodoList";
 import { Container } from "@mui/material";
 
 export default function Home() {
-  
   return (
     <>
       <Header/>

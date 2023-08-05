@@ -29,7 +29,7 @@ export default function TodoList() {
             done={todo.done}
           />
         ))
-        : <Typography sx={{ padding: '10px' }}>There is no any task</Typography>
+        : <Typography sx={{ padding: '10px' }}>There is no task</Typography>
       }
     </List>
   )
