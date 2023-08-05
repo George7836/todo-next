@@ -12,8 +12,8 @@ export default function Home() {
         maxWidth='lg' 
         sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}
       >
-        <TodoList/>
         <AddTodoBlock/>
+        <TodoList/>
       </Container>
     </>
   )

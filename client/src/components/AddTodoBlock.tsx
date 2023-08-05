@@ -22,7 +22,7 @@ export default function AddTodoBlock() {
     <Box
       sx={{
         backgroundColor: '#fff',
-        marginTop: '15px',
+        marginTop: '70px',
         padding: '10px',
         display: 'flex',
         flexDirection: 'column'
@@ -35,6 +35,8 @@ export default function AddTodoBlock() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         inputProps={{ style: { padding: '10px' } }}
+        autoFocus
+        onKeyDown={(e) => e.key === 'Enter' && addTask()}
       />
       <Button 
         variant="contained"

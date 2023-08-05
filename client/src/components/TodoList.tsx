@@ -8,7 +8,6 @@ import { useTodos } from '@/store/store'
 export default function TodoList() {
   const todos = useTodos((state) => state.filteredTodos)
   const getTodos = useTodos((state) => state.getTodos)
-  const fetchedTodos = useTodos((state) => state.todos)
 
   useEffect(() => {
     getTodos()
@@ -18,7 +17,7 @@ export default function TodoList() {
     <List sx={{ 
       width: '100%', 
       bgcolor: 'background.paper', 
-      marginTop: '70px'
+      marginTop: '15px'
     }}>
       {todos.length > 0
         ?
