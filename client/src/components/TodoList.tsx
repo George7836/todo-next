@@ -1,9 +1,10 @@
 'use client'
 
 import { List, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import TodoItem from './TodoItem'
 import { useTodos } from '@/store/store'
+import axios from 'axios'
 
 export default function TodoList() {
   const todos = useTodos((state) => state.filteredTodos)
