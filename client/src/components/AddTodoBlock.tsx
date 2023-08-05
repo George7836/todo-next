@@ -1,30 +1,19 @@
 'use client'
 
+import { addNewTask } from '@/api/addNewTask'
 import { useTodos } from '@/store/store'
 import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
 export default function AddTodoBlock() {
-  const addTodo = useTodos((state) => state.addTodo)
   const todos = useTodos((state) => state.todos)
   const [text, setText] = useState('')
   const filterTodos = useTodos((state) => state.filterTodos)
+  const getTodos = useTodos((state) => state.getTodos)
 
-  const createUniqId = () => {
-    let id = Math.random();
-    const check = todos.find((el) => el.id === id);
-    if (check) {
-      createUniqId();
-    }
-    return id;
-  }
-
-  const addTask = () => {
-    addTodo({
-      id: createUniqId(),
-      done: false,
-      text: text
-    })
+  const addTask = async () => {
+    await addNewTask(text, false)
+    await getTodos()
     filterTodos()
     setText('')
   }

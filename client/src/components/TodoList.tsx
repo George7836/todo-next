@@ -4,10 +4,14 @@ import { List, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import TodoItem from './TodoItem'
 import { useTodos } from '@/store/store'
-import axios from 'axios'
 
 export default function TodoList() {
   const todos = useTodos((state) => state.filteredTodos)
+  const getTodos = useTodos((state) => state.getTodos)
+
+  useEffect(() => {
+    getTodos()
+  }, [])
 
   return (
     <List sx={{ 
@@ -21,7 +25,7 @@ export default function TodoList() {
           <TodoItem 
             key={todo.id}
             id={todo.id}
-            text={todo.text}
+            content={todo.content}
             done={todo.done}
           />
         ))

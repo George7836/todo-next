@@ -7,30 +7,33 @@ import DoneIcon from '@mui/icons-material/Done';
 import React, { useState } from 'react'
 import { Todo } from '@/types/types';
 import { useTodos } from '@/store/store';
+import { updateTodo } from '@/api/updateTodo';
+import { removeTask } from '@/api/removeTask';
 
-export default function TodoItem({id, text, done}: Todo) {
-  const [todoText, setTodoText] = useState(text)
+export default function TodoItem({id, content, done}: Todo) {
+  const [todoText, setTodoText] = useState(content)
   const [editMode, setEditMode] = useState(false)
-  const removeTodo = useTodos((state) => state.removeTodo)
-  const setDone = useTodos((state) => state.setDone)
-  const setUpdated = useTodos((state) => state.setUpdated)
   const filterTodos = useTodos((state) => state.filterTodos)
+  const getTodos = useTodos((state) => state.getTodos)
 
   const lineThrough = done ? {'textDecoration': 'line-through'} : {'textDecoration': 'none'}
  
-  const updateTodoText = () => {
-    setUpdated(id, todoText)
+  const updateTodoText = async () => {
+    await updateTodo({id: id, content: todoText, done: done})
+    await getTodos()
     filterTodos()
     setEditMode((prev) => !prev)
   }
 
-  const deleteTask = () => {
-    removeTodo(id)
+  const deleteTask = async () => {
+    await removeTask(id)
+    await getTodos()
     filterTodos()
   }
 
-  const setCompleted = () => {
-    setDone(id)
+  const setCompleted = async () => {
+    await updateTodo({id: id, content: content, done: !done})
+    await getTodos()
     filterTodos()
   }
 
