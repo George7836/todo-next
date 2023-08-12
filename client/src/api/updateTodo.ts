@@ -1,19 +1,19 @@
 import axios from "axios";
 
-type updateTodoProps = { 
-  id: number 
-  content: string
-  done: boolean
-}
+type updateTodoProps = {
+  id: number;
+  content: string;
+  done: boolean;
+};
 
-export async function updateTodo({id, content, done}: updateTodoProps) {
+export async function updateTodo({ id, content, done }: updateTodoProps) {
   await axios({
-    method: 'put',
-    url: `http://localhost:8080/api/todo/${id}`,
+    method: "put",
+    url: `http://localhost:8080/api/task/${id}`,
     data: {
       id: id,
       content: content,
-      done: done
-    }
-  })
+      done: done,
+    },
+  });
 }
