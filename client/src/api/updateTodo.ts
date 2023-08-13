@@ -1,3 +1,4 @@
+require("dotenv").config();
 import axios from "axios";
 
 type updateTodoProps = {
@@ -9,7 +10,7 @@ type updateTodoProps = {
 export async function updateTodo({ id, content, done }: updateTodoProps) {
   await axios({
     method: "put",
-    url: `http://localhost:8080/api/task/${id}`,
+    url: `http://${process.env.NEXT_PUBLIC_HOST}/api/task/${id}`,
     data: {
       id: id,
       content: content,
