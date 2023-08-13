@@ -4,7 +4,6 @@ import TodoList from "@/components/TodoList";
 import { Container } from "@mui/material";
 
 export default function Home() {
-  
   return (
     <>
       <Header/>
@@ -12,8 +11,8 @@ export default function Home() {
         maxWidth='lg' 
         sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}
       >
-        <TodoList/>
         <AddTodoBlock/>
+        <TodoList/>
       </Container>
     </>
   )

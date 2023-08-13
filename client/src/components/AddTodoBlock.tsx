@@ -1,30 +1,18 @@
 'use client'
 
+import { addNewTask } from '@/api/addNewTask'
 import { useTodos } from '@/store/store'
 import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
 export default function AddTodoBlock() {
-  const addTodo = useTodos((state) => state.addTodo)
-  const todos = useTodos((state) => state.todos)
   const [text, setText] = useState('')
   const filterTodos = useTodos((state) => state.filterTodos)
+  const getTodos = useTodos((state) => state.getTodos)
 
-  const createUniqId = () => {
-    let id = Math.random();
-    const check = todos.find((el) => el.id === id);
-    if (check) {
-      createUniqId();
-    }
-    return id;
-  }
-
-  const addTask = () => {
-    addTodo({
-      id: createUniqId(),
-      done: false,
-      text: text
-    })
+  const addTask = async () => {
+    await addNewTask(text, false)
+    await getTodos()
     filterTodos()
     setText('')
   }
@@ -33,7 +21,7 @@ export default function AddTodoBlock() {
     <Box
       sx={{
         backgroundColor: '#fff',
-        marginTop: '15px',
+        marginTop: '70px',
         padding: '10px',
         display: 'flex',
         flexDirection: 'column'
@@ -46,6 +34,8 @@ export default function AddTodoBlock() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         inputProps={{ style: { padding: '10px' } }}
+        autoFocus
+        onKeyDown={(e) => e.key === 'Enter' && addTask()}
       />
       <Button 
         variant="contained"
