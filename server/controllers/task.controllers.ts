@@ -1,5 +1,7 @@
+const sequelize = require("../database");
 import Task from "../models/task";
 import { Request, Response } from "express";
+sequelize.addModels([Task]);
 
 class TaskControllers {
   async getAllTasks(req: Request, res: Response) {
