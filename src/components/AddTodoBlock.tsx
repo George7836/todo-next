@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
-import { useTodos } from '@/store/store'
-import { Box, Button, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import { useTodos } from "@/store/store";
+import { Box, Button, TextField, styled } from "@mui/material";
+import React, { useState } from "react";
 
 export default function AddTodoBlock() {
-  const addTodo = useTodos((state) => state.addTodo)
-  const todos = useTodos((state) => state.todos)
-  const [text, setText] = useState('')
-  const filterTodos = useTodos((state) => state.filterTodos)
+  const addTodo = useTodos((state) => state.addTodo);
+  const todos = useTodos((state) => state.todos);
+  const [text, setText] = useState("");
 
   const createUniqId = () => {
     let id = Math.random();
@@ -17,46 +16,45 @@ export default function AddTodoBlock() {
       createUniqId();
     }
     return id;
-  }
+  };
 
   const addTask = () => {
     addTodo({
       id: createUniqId(),
       done: false,
-      text: text
-    })
-    filterTodos()
-    setText('')
-  }
+      text: text,
+    });
+    setText("");
+  };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: '#fff',
-        marginTop: '15px',
-        padding: '10px',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
-    >
-      <TextField 
-        variant='outlined' 
+    <StyledBox>
+      <TextField
+        variant="outlined"
         fullWidth
-        placeholder='Add new task ...'
+        placeholder="Add new task ..."
         value={text}
         onChange={(e) => setText(e.target.value)}
-        inputProps={{ style: { padding: '10px' } }}
+        inputProps={{ sx: { padding: "10px" } }}
       />
-      <Button 
+      <Button
         variant="contained"
         sx={{
-          alignSelf: 'flex-end',
-          marginTop: '10px'
+          alignSelf: "flex-end",
+          marginTop: "10px",
         }}
         onClick={addTask}
       >
         Add Task
       </Button>
-    </Box>
-  )
+    </StyledBox>
+  );
 }
+
+const StyledBox = styled(Box)`
+  background-color: #fff;
+  margin-top: 70px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+`;
