@@ -1,27 +1,27 @@
 import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  AllowNull,
-  AutoIncrement,
-  PrimaryKey,
-} from "sequelize-typescript";
+	Table,
+	Column,
+	Model,
+	DataType,
+	AllowNull,
+	AutoIncrement,
+	PrimaryKey,
+} from 'sequelize-typescript'
 
 @Table({
-  modelName: "tasks",
-  timestamps: false,
+	modelName: 'tasks',
+	timestamps: false,
 })
 export default class Task extends Model {
-  @AllowNull(false)
-  @AutoIncrement
-  @PrimaryKey
-  @Column
-  id: number;
+	@AllowNull(false)
+	@AutoIncrement
+	@PrimaryKey
+	@Column
+	id: number
 
-  @Column(DataType.TEXT)
-  content: string;
+	@Column(DataType.TEXT)
+	content: string
 
-  @Column
-  done: boolean;
+	@Column
+	done: boolean
 }
